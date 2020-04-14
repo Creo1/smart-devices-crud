@@ -1,0 +1,147 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Device CRUD API
+host: 'localhost:11000'
+basePath: /api/v1
+schemes:
+  - http
+  - https
+consumes:
+  - application/json;version=1
+produces:
+  - application/json
+  - text/plain
+paths:
+  /device:
+    x-swagger-router-controller: controller
+    get:
+      description: Retrieve a list of devices
+      operationId: v1DeviceList
+      parameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page number of the request
+        - name: count
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: filter
+          in: query
+          type: string
+          description: Filter results based on certain fields
+        - name: select
+          in: query
+          type: string
+          description: Comma seperated fields to be displayed
+        - name: sort
+          in: query
+          type: string
+          description: Sort parameters
+      responses:
+        '200':
+          description: List of the entites
+        '400':
+          description: Bad parameters
+        '500':
+          description: Internal server error
+    post:
+      description: Create a new device
+      operationId: v1DeviceCreate
+      parameters:
+        - name: data
+          in: body
+          description: Payload to create a device
+          schema:
+            $ref: '#/definitions/device_create'
+      responses:
+        '200':
+          description: List of the entites
+        '400':
+          description: Bad parameters
+        '500':
+          description: Internal server error       
+  '/device/{id}':
+    x-swagger-router-controller: controller
+    get:
+      description: Retrieve a device
+      operationId: v1DeviceShow
+      parameters:
+        - name: select
+          in: query
+          type: string
+          description: Comma seperated fields to be displayed
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Id of the object to be displayed
+      responses:
+        '200':
+          description: List of the entites
+        '400':
+          description: Bad parameters
+        '404':
+          description: No document to list with the given parameter set. 
+        '500':
+          description: Internal server error
+    put:
+      description: Update a device
+      operationId: v1DeviceUpdate
+      parameters:
+        - name: data
+          in: body
+          description: Payload to update a device
+          schema:
+            $ref: '#/definitions/device_update'
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Id of the device to be updated
+      responses:
+        '200':
+          description: List of the entites
+        '400':
+          description: Bad parameters
+        '404':
+          description: No document to update with the given parameter set.  
+        '500':
+          description: Internal server error
+    delete:
+      description: Delete a device
+      operationId: v1DeviceDestroy
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Id of the device to be updated
+      responses:
+        '200':
+          description: List of the entites
+        '400':
+          description: Bad parameters
+        '404':
+          description: No document to delete with the given parameter set.  
+        '500':
+          description: Internal server error
+definitions:
+  device_create:
+    required: 
+      - status
+      - deviceName
+    properties:
+      deviceName:
+        type: string
+      status:
+        type: string
+        enum: ["on", "off"]
+  device_update:
+    properties:
+      deviceName:
+        type: string
+      status:
+        type: string
+        enum: ["on", "off"]

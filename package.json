@@ -1,0 +1,23 @@
+{
+  "name": "deviceapis",
+  "version": "1.0.0",
+  "description": "device crud apis",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "./node_modules/.bin/eslint app.js api/ --fix"
+  },
+  "author": "ajay",
+  "license": "ISC",
+  "dependencies": {
+    "@appveen/swagger-mongoose-crud": "1.0.3",
+    "@appveen/utils": "^1.1.2",
+    "express": "^4.16.3",
+    "log4js": "^4.0.2",
+    "mongoose": "^5.2.4",
+    "swagger-express-mw": "^0.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0"
+  }
+}
